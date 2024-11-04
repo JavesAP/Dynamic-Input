@@ -1,41 +1,43 @@
 import React from "react"
+import { DIValidations } from "./types"
 //import { RulesType } from "./types"
 
-export const validationFor = (inputType: string, value: string) => {
+// Validation for DynamicInput
+export const validationFor = (inputType: string, value: DIValidations) => {
+  const {minLength, required, allowNumbers, placeholder} = value
+
   switch(inputType) {
   case 'text': 
-    return textValidation(value)
+    return {minLength, required, allowNumbers, placeholder}
   case 'email': 
-    return 
+    return {required, placeholder}
   case 'password': 
-    return 
+    return {minLength, required, placeholder}
   case 'number': 
-    return
+    return {}
   case 'phone': 
     return
   case 'url': 
-    return
+    return {}
   default: 
-    return false
+    return {}
   }
 }
 
-export const handleOnBlur = (inputType: string) => (event: React.FocusEvent<HTMLInputElement>) => {
-  const value = event.target.value
-  const validationResult = validationFor(inputType, value)
-  if (validationResult) {
-    console.log(`${value} is valid`)
-  } else {
-    event.target.style.borderColor = 'red'
+export const textValidation = (textValue: string, rules: DIValidations) => {
+  const { allowNumbers, minLength, required } = rules
+  const errorMessages = []
+  console.log(allowNumbers, minLength, required)
+  
+  if (!allowNumbers && /\d/.test(textValue)) {
+    errorMessages.push('Input cannot contain numbers')
   }
-}
-
-export const onFocusHandler = (inputType: string) => (event: React.FocusEvent<HTMLInputElement>) => {
-  const value = event.target.value
-  const validationResult = validationFor(inputType, value)
-  if (validationResult) return 
-}
-
-const textValidation = (value: string) => {
-  return value.length > 2 ? true : false
+  if (minLength && textValue.length < minLength) {
+    errorMessages.push(`This input needs at least ${minLength} characters`)
+  }
+  if (required && !textValue) {
+    errorMessages.push('This field is required')
+  }
+  console.log(errorMessages)
+  return errorMessages
 }

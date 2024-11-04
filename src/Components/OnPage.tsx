@@ -1,36 +1,20 @@
 import { useState } from "react"
 import { DynamicInput } from "../Input/dynamicInput"
-import { handleOnBlur } from "../Input/validations"
+//import { handleOnBlur } from "../Input/validations"
 import { ControllingForm } from "../Form/ControlForm"
-import { InputSpecifications, ValidationRules } from "../Input/types"
+import { InputSpecifications } from "../Input/types"
 
 export const InputContainer = ({ inputSpecificRules }: {
-  inputSpecificRules: ValidationRules
+  inputSpecificRules: InputSpecifications
 }) => {
-  const [inputValue, setInputValue] = useState('')
-  const [isOnFocus, setIsOnFocus] = useState(false)
+  //const [isOnFocus, setIsOnFocus] = useState(false)
+
+  const { inputType, rules } = inputSpecificRules
+  console.log(inputType, rules)
+
   return (
-    <div className='dynamic-input-container'>
-      <DynamicInput 
-        inputProps={{
-          type: 'text',
-          placeholder: 'Luke',
-          onChange: (e) => {
-            setInputValue(e.target.value)
-          },
-          value: inputValue,
-          onBlur: () => {
-            handleOnBlur('text')
-            setIsOnFocus(false)
-          },
-          onFocus: () => setIsOnFocus(true)
-        }}
-      />
-      {isOnFocus && 
-      <ul>
-        <li>Input needs at least 2 characters</li>
-      </ul>
-      }
+    <div className='di-form-container'>
+      <DynamicInput inputSpecificRules={ inputSpecificRules }/>
     </div>
   )
 }
@@ -43,24 +27,23 @@ export const FormInputWrapper = () => {
         minLength: undefined,
         maxLength: undefined,
         required: undefined,
-        pattern: undefined,
+        placeholder: undefined,
       },
       email: {
         required: undefined,
-        pattern: undefined,
+        placeholder: undefined
       },
       telephone: {
         required: undefined,
-        pattern: undefined,
+        placeholder: undefined
       }
     }
   })
-  console.log(inputSpecific)
 
   return (
-    <div>
+    <div className="contForm-and-dInput-container">
       <ControllingForm setInputSpecific={ setInputSpecific }/>
-      <InputContainer inputSpecificRules={ inputSpecific.rules }/>
+      <InputContainer inputSpecificRules={ inputSpecific }/>
     </div>
   )
 }

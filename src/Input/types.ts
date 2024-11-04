@@ -20,23 +20,30 @@ export interface CustomInputProps {
 export type InputProps = ComponentProps<'input'>
 
 export type ValidationRules = {
-  text?: {
+  text: {
       minLength?: number;
       maxLength?: number;
       required?: boolean;
-      pattern?: RegExp;
+      placeholder?: string;
   };
-  email?: {
+  email: {
       required?: boolean;
-      pattern?: RegExp;
+      placeholder?: string;
   };
-  telephone?: {
+  telephone: {
       required?: boolean; 
-      pattern?: RegExp; 
+      placeholder?: string; 
   };
 }
 
 export type InputSpecifications = {
   inputType: string,
   rules: ValidationRules
+}
+
+export type DIValidations = {
+  minLength?: number
+  required?: boolean
+  allowNumbers?: boolean
+  placeholder?: string
 }
