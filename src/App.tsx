@@ -1,5 +1,5 @@
 import './App.css'
-import { FormInputWrapper, InputContainer } from './Components/OnPage'
+import { FormInputWrapper } from './Components/OnPage'
 
 
 function App() {

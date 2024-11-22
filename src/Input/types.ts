@@ -43,6 +43,7 @@ export type InputSpecifications = {
 
 export type DIValidations = {
   minLength?: number
+  maxLength?: number
   required?: boolean
   allowNumbers?: boolean
   placeholder?: string

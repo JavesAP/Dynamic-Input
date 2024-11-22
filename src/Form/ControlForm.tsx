@@ -2,12 +2,14 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { DIValidations, InputSpecifications } from "../Input/types";
 import { validationFor } from "../Input/validations";
 
-export const ControllingForm = ({ setInputSpecific }: 
-{ setInputSpecific: Dispatch<SetStateAction<InputSpecifications>> }) => {
+export const ControllingForm = ({ setInputSpecific }: { 
+    setInputSpecific: Dispatch<SetStateAction<InputSpecifications>> 
+}) => {
     const [inputType, setInputType] = useState('text');
 
     const [possibleValidation, setPossibleValidation] = useState<DIValidations>({
         minLength: undefined,
+        maxLength: undefined,
         required: undefined,
         allowNumbers: undefined,
         placeholder: undefined
@@ -33,7 +35,10 @@ export const ControllingForm = ({ setInputSpecific }:
         <form onSubmit={handleSubmit}>
             <div className="controlling-form-input-container">
                 <label>Input Type:</label>
-                <select value={inputType} onChange={(e) => setInputType(e.target.value)}>
+                <select 
+                  value={inputType} 
+                  onChange={(e) => setInputType(e.target.value)}
+                >
                     <option value="text">Text</option>
                     <option value="email">Email</option>
                     <option value="number">Number</option>
@@ -45,6 +50,14 @@ export const ControllingForm = ({ setInputSpecific }:
                   value={possibleValidation.minLength || ''} 
                   onChange={(e) => setPossibleValidation({...possibleValidation, minLength: Number(e.target.value)})}
                   disabled={disableInput.minimumLength.includes(inputType)}
+                />
+            </div>
+            <div className="controlling-form-input-container">
+                <label>Maximum Length:</label>
+                <input type="number" 
+                  value={possibleValidation.maxLength || ''} 
+                  onChange={(e) => setPossibleValidation({...possibleValidation, maxLength: Number(e.target.value)})}
+                  //disabled={disableInput.minimumLength.includes(inputType)}
                 />
             </div>
             <div className="controlling-form-input-container">

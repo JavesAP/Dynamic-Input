@@ -40,7 +40,7 @@ export const DynamicInput = ({inputSpecificRules}: {
             </>
           </div>
         )
-        case 'email': 
+      case 'email': 
         return (
           <div>
             <>
